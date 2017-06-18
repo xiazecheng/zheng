@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zheng.shop.dao.mapper.ShopProductMapper">
+  <resultMap id="BaseResultMap" type="com.zheng.shop.dao.model.ShopProduct">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="mtime" jdbcType="BIGINT" property="mtime" />
+    <result column="freeze_store" jdbcType="INTEGER" property="freezeStore" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_best" jdbcType="BIT" property="isBest" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="is_marketable" jdbcType="BIT" property="isMarketable" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="store" jdbcType="INTEGER" property="store" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="weight_unit" jdbcType="INTEGER" property="weightUnit" />
+    <result column="brand_id" jdbcType="VARCHAR" property="brandId" />
+    <result column="product_category_id" jdbcType="VARCHAR" property="productCategoryId" />
+    <result column="product_type_id" jdbcType="VARCHAR" property="productTypeId" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zheng.shop.dao.model.ShopProduct">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+    <result column="product_image_list_store" jdbcType="LONGVARCHAR" property="productImageListStore" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ctime, mtime, freeze_store, html_file_path, is_best, is_hot, is_marketable, is_new, 
+    market_price, name, point, price, product_sn, store, weight, weight_unit, brand_id, 
+    product_category_id, product_type_id, is_delete
+  </sql>
+  <sql id="Blob_Column_List">
+    description, meta_description, meta_keywords, product_image_list_store
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zheng.shop.dao.model.ShopProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zheng.shop.dao.model.ShopProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shop_product
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zheng.shop.dao.model.ShopProductExample">
+    delete from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zheng.shop.dao.model.ShopProduct">
+    insert into shop_product (id, ctime, mtime, 
+      freeze_store, html_file_path, is_best, 
+      is_hot, is_marketable, is_new, market_price, 
+      name, point, price, 
+      product_sn, store, weight, 
+      weight_unit, brand_id, product_category_id, 
+      product_type_id, is_delete, description, 
+      meta_description, meta_keywords, 
+      product_image_list_store)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}, #{mtime,jdbcType=BIGINT}, 
+      #{freezeStore,jdbcType=INTEGER}, #{htmlFilePath,jdbcType=VARCHAR}, #{isBest,jdbcType=BIT}, 
+      #{isHot,jdbcType=BIT}, #{isMarketable,jdbcType=BIT}, #{isNew,jdbcType=BIT}, #{marketPrice,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{productSn,jdbcType=VARCHAR}, #{store,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, 
+      #{weightUnit,jdbcType=INTEGER}, #{brandId,jdbcType=VARCHAR}, #{productCategoryId,jdbcType=VARCHAR}, 
+      #{productTypeId,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, 
+      #{metaDescription,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}, 
+      #{productImageListStore,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zheng.shop.dao.model.ShopProduct">
+    insert into shop_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="mtime != null">
+        mtime,
+      </if>
+      <if test="freezeStore != null">
+        freeze_store,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isBest != null">
+        is_best,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="isMarketable != null">
+        is_marketable,
+      </if>
+      <if test="isNew != null">
+        is_new,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="weightUnit != null">
+        weight_unit,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="productCategoryId != null">
+        product_category_id,
+      </if>
+      <if test="productTypeId != null">
+        product_type_id,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+      <if test="productImageListStore != null">
+        product_image_list_store,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="mtime != null">
+        #{mtime,jdbcType=BIGINT},
+      </if>
+      <if test="freezeStore != null">
+        #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="productCategoryId != null">
+        #{productCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        #{productTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="productImageListStore != null">
+        #{productImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zheng.shop.dao.model.ShopProductExample" resultType="java.lang.Long">
+    select count(*) from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_product
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=BIGINT},
+      </if>
+      <if test="record.mtime != null">
+        mtime = #{record.mtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.freezeStore != null">
+        freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="record.htmlFilePath != null">
+        html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBest != null">
+        is_best = #{record.isBest,jdbcType=BIT},
+      </if>
+      <if test="record.isHot != null">
+        is_hot = #{record.isHot,jdbcType=BIT},
+      </if>
+      <if test="record.isMarketable != null">
+        is_marketable = #{record.isMarketable,jdbcType=BIT},
+      </if>
+      <if test="record.isNew != null">
+        is_new = #{record.isNew,jdbcType=BIT},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null">
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productSn != null">
+        product_sn = #{record.productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.store != null">
+        store = #{record.store,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weightUnit != null">
+        weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCategoryId != null">
+        product_category_id = #{record.productCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productTypeId != null">
+        product_type_id = #{record.productTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=BIT},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaDescription != null">
+        meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaKeywords != null">
+        meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.productImageListStore != null">
+        product_image_list_store = #{record.productImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update shop_product
+    set id = #{record.id,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=BIGINT},
+      mtime = #{record.mtime,jdbcType=BIGINT},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      product_sn = #{record.productSn,jdbcType=VARCHAR},
+      store = #{record.store,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      product_category_id = #{record.productCategoryId,jdbcType=VARCHAR},
+      product_type_id = #{record.productTypeId,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=BIT},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      product_image_list_store = #{record.productImageListStore,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_product
+    set id = #{record.id,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=BIGINT},
+      mtime = #{record.mtime,jdbcType=BIGINT},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      product_sn = #{record.productSn,jdbcType=VARCHAR},
+      store = #{record.store,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      product_category_id = #{record.productCategoryId,jdbcType=VARCHAR},
+      product_type_id = #{record.productTypeId,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zheng.shop.dao.model.ShopProduct">
+    update shop_product
+    <set>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="mtime != null">
+        mtime = #{mtime,jdbcType=BIGINT},
+      </if>
+      <if test="freezeStore != null">
+        freeze_store = #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        is_best = #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        is_marketable = #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        is_new = #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null">
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        weight_unit = #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="productCategoryId != null">
+        product_category_id = #{productCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        product_type_id = #{productTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="productImageListStore != null">
+        product_image_list_store = #{productImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zheng.shop.dao.model.ShopProduct">
+    update shop_product
+    set ctime = #{ctime,jdbcType=BIGINT},
+      mtime = #{mtime,jdbcType=BIGINT},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      product_sn = #{productSn,jdbcType=VARCHAR},
+      store = #{store,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      product_category_id = #{productCategoryId,jdbcType=VARCHAR},
+      product_type_id = #{productTypeId,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      description = #{description,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      product_image_list_store = #{productImageListStore,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zheng.shop.dao.model.ShopProduct">
+    update shop_product
+    set ctime = #{ctime,jdbcType=BIGINT},
+      mtime = #{mtime,jdbcType=BIGINT},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      product_sn = #{productSn,jdbcType=VARCHAR},
+      store = #{store,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      product_category_id = #{productCategoryId,jdbcType=VARCHAR},
+      product_type_id = #{productTypeId,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

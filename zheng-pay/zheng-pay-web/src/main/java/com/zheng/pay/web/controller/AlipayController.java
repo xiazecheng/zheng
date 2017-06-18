@@ -33,7 +33,7 @@ public class AlipayController extends BaseController {
         bizContent.put("out_trade_no", "pay20170404005030000000");
         bizContent.put("total_amount", "0.01");
         bizContent.put("subject", "Iphone6 16G");
-        bizContent.put("seller_id", "2088123456789012");
+        bizContent.put("seller_id", "2088802852497368");
         bizContent.put("product_code", "QUICK_WAP_PAY");
         alipayRequest.setBizContent(bizContent.toString());
         return alipayClient.pageExecute(alipayRequest).getBody();

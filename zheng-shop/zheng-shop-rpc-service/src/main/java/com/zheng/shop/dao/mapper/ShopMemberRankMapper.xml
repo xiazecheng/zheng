@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zheng.shop.dao.mapper.ShopMemberRankMapper">
+  <resultMap id="BaseResultMap" type="com.zheng.shop.dao.model.ShopMemberRank">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="mtime" jdbcType="BIGINT" property="mtime" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="preferential_scale" jdbcType="DOUBLE" property="preferentialScale" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ctime, mtime, is_default, name, point, preferential_scale
+  </sql>
+  <select id="selectByExample" parameterType="com.zheng.shop.dao.model.ShopMemberRankExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_member_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_member_rank
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shop_member_rank
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zheng.shop.dao.model.ShopMemberRankExample">
+    delete from shop_member_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zheng.shop.dao.model.ShopMemberRank">
+    insert into shop_member_rank (id, ctime, mtime, 
+      is_default, name, point, 
+      preferential_scale)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}, #{mtime,jdbcType=BIGINT}, 
+      #{isDefault,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, 
+      #{preferentialScale,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zheng.shop.dao.model.ShopMemberRank">
+    insert into shop_member_rank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="mtime != null">
+        mtime,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="preferentialScale != null">
+        preferential_scale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="mtime != null">
+        #{mtime,jdbcType=BIGINT},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="preferentialScale != null">
+        #{preferentialScale,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zheng.shop.dao.model.ShopMemberRankExample" resultType="java.lang.Long">
+    select count(*) from shop_member_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_member_rank
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=BIGINT},
+      </if>
+      <if test="record.mtime != null">
+        mtime = #{record.mtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDefault != null">
+        is_default = #{record.isDefault,jdbcType=BIT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null">
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.preferentialScale != null">
+        preferential_scale = #{record.preferentialScale,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_member_rank
+    set id = #{record.id,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=BIGINT},
+      mtime = #{record.mtime,jdbcType=BIGINT},
+      is_default = #{record.isDefault,jdbcType=BIT},
+      name = #{record.name,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      preferential_scale = #{record.preferentialScale,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zheng.shop.dao.model.ShopMemberRank">
+    update shop_member_rank
+    <set>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="mtime != null">
+        mtime = #{mtime,jdbcType=BIGINT},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="preferentialScale != null">
+        preferential_scale = #{preferentialScale,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zheng.shop.dao.model.ShopMemberRank">
+    update shop_member_rank
+    set ctime = #{ctime,jdbcType=BIGINT},
+      mtime = #{mtime,jdbcType=BIGINT},
+      is_default = #{isDefault,jdbcType=BIT},
+      name = #{name,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      preferential_scale = #{preferentialScale,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

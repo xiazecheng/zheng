@@ -33,5 +33,6 @@
         <module>zheng-eoms</module>
         <module>zheng-api</module>
         <module>zheng-demo</module>
+        <module>zheng-shop</module>
     </modules>
 </project>

@@ -18,4 +18,12 @@
         <maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
     </properties>
 
+    <modules>
+        <module>zheng-shop-common</module>
+        <module>zheng-shop-dao</module>
+        <module>zheng-shop-web</module>
+        <module>zheng-shop-admin</module>
+        <module>zheng-shop-rpc-api</module>
+        <module>zheng-shop-rpc-service</module>
+    </modules>
 </project>

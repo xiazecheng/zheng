@@ -50,10 +50,15 @@ public class MybatisGeneratorUtil {
 			String package_name,
 			Map<String, String> last_insert_id_tables) throws Exception{
 
-		generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath().replaceFirst("/", "");
-		service_vm = MybatisGeneratorUtil.class.getResource(service_vm).getPath().replaceFirst("/", "");
-		serviceMock_vm = MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath().replaceFirst("/", "");
-		serviceImpl_vm = MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath().replaceFirst("/", "");
+//		generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath().replaceFirst("/", "");
+//		service_vm = MybatisGeneratorUtil.class.getResource(service_vm).getPath().replaceFirst("/", "");
+//		serviceMock_vm = MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath().replaceFirst("/", "");
+//		serviceImpl_vm = MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath().replaceFirst("/", "");
+
+		generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath();
+		service_vm = MybatisGeneratorUtil.class.getResource(service_vm).getPath();
+		serviceMock_vm = MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath();
+		serviceImpl_vm = MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath();
 
 		String targetProject = module + "/" + module + "-dao";
 		String module_path = module + "/" + module + "-dao/src/main/resources/generatorConfig.xml";
