@@ -44,6 +44,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     @Autowired
     UpmsLogMapper upmsLogMapper;
 
+
     /**
      * 根据用户id获取所拥有的权限
      * @param upmsUserId
@@ -163,6 +164,17 @@ public class UpmsApiServiceImpl implements UpmsApiService {
             return upmsUsers.get(0);
         }
         return null;
+    }
+
+    /**
+     * roleName
+     * @param roleName
+     * @return
+     */
+    @Override
+    public List<UpmsUser> selectUpmsUserByRole(String roleName){
+        List<UpmsUser> upmsUsers = upmsApiMapper.selectUpmsUserByUpmsRoleName(roleName);
+        return upmsUsers;
     }
 
     /**

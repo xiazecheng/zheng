@@ -27,6 +27,21 @@
 		<result column="orders" jdbcType="BIGINT" property="orders" />
 	</resultMap>
 
+	<!-- 用户 -->
+	<resultMap id="UpmsUserResultMap" type="com.zheng.upms.dao.model.UpmsUser">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<result column="realname" jdbcType="VARCHAR" property="realname" />
+		<result column="avatar" jdbcType="VARCHAR" property="avatar" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="sex" jdbcType="TINYINT" property="sex" />
+		<result column="locked" jdbcType="TINYINT" property="locked" />
+		<result column="ctime" jdbcType="BIGINT" property="ctime" />
+	</resultMap>
+
 	<!-- 权限字段 -->
 	<sql id="UpmsPermission_Column_List">
 		permission_id, system_id, pid, name, type, permission_value, uri, icon, status, ctime, orders
@@ -35,6 +50,11 @@
 	<!-- 角色字段 -->
 	<sql id="UpmsRole_Column_List">
 		role_id, name, title, description, ctime, orders
+	</sql>
+
+	<!-- 用户字段 -->
+	<sql id="UpmsUser_Column_List">
+		user_id, username,realname
 	</sql>
 
 	<!-- 根据用户获取所拥有的权限 -->
@@ -59,6 +79,16 @@
 			<include refid="UpmsRole_Column_List" />
 		from upms_role ur where ur.role_id in (
 			select uur.role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
+		)
+	</select>
+
+	<select id="selectUpmsUserByUpmsRoleName" parameterType="java.lang.String" resultMap="UpmsUserResultMap">
+		select
+			<include refid="UpmsUser_Column_List" />
+		from upms_user u where u.user_id in (
+			select uur.user_id from upms_user_role uur where uur.role_id in (
+				select r.role_id from upms_role r where r.name = #{name,jdbcType=VARCHAR}
+			)
 		)
 	</select>
 

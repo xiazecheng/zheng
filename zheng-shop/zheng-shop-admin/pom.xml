@@ -42,6 +42,12 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- zheng-upms-client -->
+        <dependency>
+            <groupId>com.zheng</groupId>
+            <artifactId>zheng-upms-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -88,10 +94,10 @@
                 <configuration>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/zheng-shop-admin</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <httpConnector>
-                        <port>3331</port>
+                        <port>9999</port>
                     </httpConnector>
                     <reload>automatic</reload>
                 </configuration>

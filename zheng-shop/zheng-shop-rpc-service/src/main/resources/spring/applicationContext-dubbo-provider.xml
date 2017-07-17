@@ -5,12 +5,59 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://code.alibabatech.com/schema/dubbo
-        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <dubbo:application name="zheng-shop-rpc-service"/>
 
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
-    <dubbo:protocol name="dubbo" port="20884"/>
+    <dubbo:protocol name="dubbo" port="20885"/>
 
+    <!-- 品牌 -->
+    <bean id="shopBrandService" class="com.zheng.shop.rpc.service.impl.ShopBrandServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopBrandService" ref="shopBrandService" timeout="10000"/>
+
+    <!-- 配送公司 -->
+    <bean id="shopDeliveryCorpService" class="com.zheng.shop.rpc.service.impl.ShopDeliveryCorpServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopDeliveryCorpService" ref="shopDeliveryCorpService" timeout="10000"/>
+
+    <!-- 配送模板 -->
+    <bean id="shopDeliveryTypeService" class="com.zheng.shop.rpc.service.impl.ShopDeliveryTypeServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopDeliveryTypeService" ref="shopDeliveryTypeService" timeout="10000"/>
+
+    <!-- 用户等级 -->
+    <bean id="shopMemberRankService" class="com.zheng.shop.rpc.service.impl.ShopMemberRankServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopMemberRankService" ref="shopMemberRankService" timeout="10000"/>
+
+    <!-- 用户 -->
+    <bean id="shopMemberService" class="com.zheng.shop.rpc.service.impl.ShopMemberServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopMemberService" ref="shopMemberService" timeout="10000"/>
+
+    <!-- 订单 -->
+    <bean id="shopOrdersService" class="com.zheng.shop.rpc.service.impl.ShopOrdersServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopOrdersService" ref="shopOrdersService" timeout="10000"/>
+
+    <!-- 商品属性类型 -->
+    <bean id="shopProductAttributeMapStoreService" class="com.zheng.shop.rpc.service.impl.ShopProductAttributeMapStoreServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopProductAttributeMapStoreService" ref="shopProductAttributeMapStoreService" timeout="10000"/>
+
+    <!-- 商品属性 -->
+    <bean id="shopProductAttributeService" class="com.zheng.shop.rpc.service.impl.ShopProductAttributeServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopProductAttributeService" ref="shopProductAttributeService" timeout="10000"/>
+
+    <!-- 商品分类 -->
+    <bean id="shopProductCategoryService" class="com.zheng.shop.rpc.service.impl.ShopProductCategoryServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopProductCategoryService" ref="shopProductCategoryService" timeout="10000"/>
+
+    <!-- 商品 -->
+    <bean id="shopProductService" class="com.zheng.shop.rpc.service.impl.ShopProductServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopProductService" ref="shopProductService" timeout="10000"/>
+
+    <!-- 商品类型 -->
+    <bean id="shopProductTypeService" class="com.zheng.shop.rpc.service.impl.ShopProductTypeServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopProductTypeService" ref="shopProductTypeService" timeout="10000"/>
+
+    <!-- 店铺 -->
+    <bean id="shopStoreService" class="com.zheng.shop.rpc.service.impl.ShopStoreServiceImpl"/>
+    <dubbo:service interface="com.zheng.shop.rpc.api.ShopStoreService" ref="shopStoreService" timeout="10000"/>
 </beans>

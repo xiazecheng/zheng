@@ -140,6 +140,7 @@ public class ShopProductCategory implements Serializable {
         this.path = path;
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -3,6 +3,7 @@ package com.zheng.upms.rpc.mapper;
 
 import com.zheng.upms.dao.model.UpmsPermission;
 import com.zheng.upms.dao.model.UpmsRole;
+import com.zheng.upms.dao.model.UpmsUser;
 
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface UpmsApiMapper {
 
 	// 根据用户id获取所属的角色
 	List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId);
-	
+
+	// 根据角色名称获取所有用户
+	List<UpmsUser> selectUpmsUserByUpmsRoleName(String roleName);
+
 }

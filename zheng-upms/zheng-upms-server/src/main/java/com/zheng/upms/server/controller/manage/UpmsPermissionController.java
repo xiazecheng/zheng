@@ -1,7 +1,5 @@
 package com.zheng.upms.server.controller.manage;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
@@ -9,7 +7,10 @@ import com.zheng.common.base.BaseController;
 import com.zheng.common.validator.LengthValidator;
 import com.zheng.upms.common.constant.UpmsResult;
 import com.zheng.upms.common.constant.UpmsResultConstant;
-import com.zheng.upms.dao.model.*;
+import com.zheng.upms.dao.model.UpmsPermission;
+import com.zheng.upms.dao.model.UpmsPermissionExample;
+import com.zheng.upms.dao.model.UpmsSystem;
+import com.zheng.upms.dao.model.UpmsSystemExample;
 import com.zheng.upms.rpc.api.UpmsApiService;
 import com.zheng.upms.rpc.api.UpmsPermissionService;
 import com.zheng.upms.rpc.api.UpmsSystemService;
@@ -78,6 +79,7 @@ public class UpmsPermissionController extends BaseController {
             criteria.andSystemIdEqualTo(systemId);
         }
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
+            if ("permissionId".equals(sort)) sort = "permission_id";
             upmsPermissionExample.setOrderByClause(sort + " " + order);
         }
         if (StringUtils.isNotBlank(search)) {

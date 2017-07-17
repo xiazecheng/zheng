@@ -190,6 +190,9 @@ public class UpmsUserController extends BaseController {
         upmsUser.setSalt(salt);
         upmsUser.setPassword(MD5Util.MD5(upmsUser.getPassword() + upmsUser.getSalt()));
         upmsUser.setCtime(time);
+        if (upmsUser.getAvatar() == null || "".equals(upmsUser.getAvatar())){
+            upmsUser.setAvatar("/resources/zheng-admin/images/avatar.jpg");
+        }
         upmsUser = upmsUserService.createUser(upmsUser);
         if (null == upmsUser) {
             return new UpmsResult(UpmsResultConstant.FAILED, "帐号名已存在！");

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+    <dubbo:application name="zheng-shop-admin"/>
+
+    <dubbo:registry file="./zheng-shop-admin-dubbo.cache" address="zookeeper://127.0.0.1:2181"/>
+
+    <!-- 订阅服务 -->
+    <dubbo:consumer check="false"/>
+    <!-- 品牌 -->
+    <dubbo:reference id="shopBrandService" interface="com.zheng.shop.rpc.api.ShopBrandService" mock="true"/>
+
+    <!-- 物流公司 -->
+    <dubbo:reference id="shopDeliveryCorpService" interface="com.zheng.shop.rpc.api.ShopDeliveryCorpService" mock="true"/>
+
+    <!-- 配送模板 -->
+    <dubbo:reference id="shopDeliveryTypeService" interface="com.zheng.shop.rpc.api.ShopDeliveryTypeService" mock="true"/>
+
+    <!-- 会员等级 -->
+    <dubbo:reference id="shopMemberRankService" interface="com.zheng.shop.rpc.api.ShopMemberRankService" mock="true"/>
+
+    <!-- 会员 -->
+    <dubbo:reference id="shopMemberService" interface="com.zheng.shop.rpc.api.ShopMemberService" mock="true"/>
+
+    <!-- 订单 -->
+    <dubbo:reference id="shopOrdersService" interface="com.zheng.shop.rpc.api.ShopOrdersService" mock="true"/>
+
+    <!-- 商品属性 -->
+    <dubbo:reference id="shopProductAttributeMapStoreService" interface="com.zheng.shop.rpc.api.ShopProductAttributeMapStoreService" mock="true"/>
+
+    <!-- 商品属性类型 -->
+    <dubbo:reference id="shopProductAttributeService" interface="com.zheng.shop.rpc.api.ShopProductAttributeService" mock="true"/>
+
+    <!-- 商品分类 -->
+    <dubbo:reference id="shopProductCategoryService" interface="com.zheng.shop.rpc.api.ShopProductCategoryService" mock="true"/>
+
+    <!-- 商品 -->
+    <dubbo:reference id="shopProductService" interface="com.zheng.shop.rpc.api.ShopProductService" mock="true"/>
+
+    <!-- 商品类型 -->
+    <dubbo:reference id="shopProductTypeService" interface="com.zheng.shop.rpc.api.ShopProductTypeService" mock="true"/>
+
+    <!-- 店铺 -->
+    <dubbo:reference id="shopStoreService" interface="com.zheng.shop.rpc.api.ShopStoreService" mock="true"/>
+
+    <!-- 接口服务 -->
+    <dubbo:reference id="upmsApiService" interface="com.zheng.upms.rpc.api.UpmsApiService" mock="true"/>
+</beans>

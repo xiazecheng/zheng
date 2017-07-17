@@ -74,6 +74,13 @@ public interface UpmsApiService {
     UpmsUser selectUpmsUserByUsername(String username);
 
     /**
+     * roleName
+     * @param roleName
+     * @return
+     */
+    List<UpmsUser> selectUpmsUserByRole(String roleName);
+
+    /**
      * 写入操作日志
      * @param record
      * @return

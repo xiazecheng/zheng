@@ -158,7 +158,7 @@
 				</c:if>
 			</c:forEach>
 			<li>
-				<div class="upms-version">&copy; ZHENG-UPMS V1.0.0</div>
+				<div class="upms-version">&copy; YAOJIE V1.0.0</div>
 			</li>
 		</ul>
 		<!-- /菜单区 -->

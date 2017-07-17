@@ -69,6 +69,11 @@ public class UpmsApiServiceMock implements UpmsApiService {
     }
 
     @Override
+    public List<UpmsUser> selectUpmsUserByRole(String roleName) {
+        return null;
+    }
+
+    @Override
     public int insertUpmsLogSelective(UpmsLog record) {
         _log.info("UpmsApiServiceMock => insertSelective");
         return 0;
