@@ -30,6 +30,7 @@ public class VelocityUtil {
 			Velocity.init(properties);
 			//VelocityEngine engine = new VelocityEngine();
 			Template template = Velocity.getTemplate(getFile(inputVmFilePath), "utf-8");
+			if (!"Windows".equals(System.getProperty("os.name"))) outputFilePath = "/" + outputFilePath;
 			File outputFile = new File(outputFilePath);
 			FileWriterWithEncoding writer = new FileWriterWithEncoding(outputFile, "utf-8");
 			template.merge(context, writer);
@@ -47,7 +48,11 @@ public class VelocityUtil {
 	public static String getPath(String filePath) {
 		String path = "";
 		if (StringUtils.isNotBlank(filePath)) {
-			path = filePath.substring(0, filePath.lastIndexOf("/") + 1);
+			String _path = filePath.substring(0, filePath.lastIndexOf("/") + 1);
+			if (!"Windows".equals(System.getProperty("os.name")))
+				path = "/" + _path;
+			else
+				path = _path;
 		}
 		return path;
 	}
