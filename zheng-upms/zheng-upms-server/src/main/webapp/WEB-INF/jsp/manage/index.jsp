@@ -207,5 +207,34 @@
 <script src="${basePath}/resources/zheng-admin/js/admin.js"></script>
 <script src="${basePath}/resources/zheng-admin/plugins/fullPage/jquery.fullPage.min.js"></script>
 <script src="${basePath}/resources/zheng-admin/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script>
+    var onmessage = function (event) {
+        var data = event.data;
+        var origin = event.origin;
+
+        switch (data.method){
+            case 'addTab':
+                Tab._addTab(data.title,data.url);
+                break;
+            case 'closeTab':
+                var index = data.url.replace(/\./g, '_')
+									.replace(/\//g, '_')
+									.replace(/:/g, '_')
+									.replace(/\?/g, '_')
+									.replace(/,/g, '_')
+									.replace(/=/g, '_')
+									.replace(/&/g, '_');
+                Tab.closeTab($('#tab_' + index));
+                break;
+        }
+    };
+
+    if (typeof window.addEventListener != 'undefined') {
+        window.addEventListener('message', onmessage, false);
+    } else if (typeof window.attachEvent != 'undefined') {
+        //for ie
+        window.attachEvent('onmessage', onmessage);
+    }
+</script>
 </body>
 </html>

@@ -12,15 +12,15 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>类目管理</title>
+	<title>品牌管理</title>
 	<jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
 	<div id="toolbar">
-		<shiro:hasPermission name="shop:category:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增类目</a></shiro:hasPermission>
-		<shiro:hasPermission name="shop:category:update"><a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑类目</a></shiro:hasPermission>
-		<shiro:hasPermission name="shop:category:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除类目</a></shiro:hasPermission>
+		<shiro:hasPermission name="shop:brand:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增品牌</a></shiro:hasPermission>
+		<shiro:hasPermission name="shop:brand:update"><a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑品牌</a></shiro:hasPermission>
+		<shiro:hasPermission name="shop:brand:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除品牌</a></shiro:hasPermission>
 	</div>
 	<table id="table"></table>
 </div>
@@ -30,7 +30,7 @@ var $table = $('#table');
 $(function() {
 	// bootstrap table初始化
 	$table.bootstrapTable({
-		url: '${basePath}/manage/category/list',
+		url: '${basePath}/manage/brand/list',
 		height: getHeight(),
 		striped: true,
 		search: true,
@@ -53,12 +53,9 @@ $(function() {
 		columns: [
 			{field: 'ck', checkbox: true},
 			{field: 'id', title: '编号', sortable: true, align: 'center'},
-            {field: 'name', title: '类目名称'},
-			{field: 'parentId', title: '上级编号'},
-//			{field: 'path', title: '根到子的路径'},
-            {field: 'orderList', title: '排序',sortable: true},
-			{field: 'metaKeywords', title: '关键字'},
-			{field: 'metaDescription', title: '描述'},
+            {field: 'name', title: '品牌名称'},
+			{field: 'orderList', title: '排序',sortable: true},
+            {field: 'logo', title: 'logo'},
 			{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 		]
 	});
@@ -88,11 +85,11 @@ var createDialog;
 function createAction() {
 	createDialog = $.dialog({
 		animationSpeed: 300,
-		title: '新增类目',
-		content: 'url:${basePath}/manage/category/create',
+		title: '新增品牌',
+		content: 'url:${basePath}/manage/brand/create',
 		onContentReady: function () {
 			initMaterialInput();
-            $('select').select2();
+//            $('select').select2();
 		}
 	});
 }
@@ -116,11 +113,10 @@ function updateAction() {
 	} else {
 		updateDialog = $.dialog({
 			animationSpeed: 300,
-			title: '编辑类目',
-			content: 'url:${basePath}/manage/category/update/' + rows[0].id,
+			title: '编辑品牌',
+			content: 'url:${basePath}/manage/brand/update/' + rows[0].id,
 			onContentReady: function () {
 				initMaterialInput();
-                $('select').select2();
 			}
 		});
 	}
@@ -147,7 +143,7 @@ function deleteAction() {
 			type: 'red',
 			animationSpeed: 300,
 			title: false,
-			content: '确认删除该类目吗？',
+			content: '确认删除该品牌吗？',
 			buttons: {
 				confirm: {
 					text: '确认',
@@ -159,22 +155,40 @@ function deleteAction() {
 						}
 						$.ajax({
 							type: 'get',
-							url: '${basePath}/manage/category/delete/' + ids.join("-"),
+							url: '${basePath}/manage/brand/delete/' + ids.join("-"),
 							success: function(result) {
 								if (result.code != 1) {
-                                    $.confirm({
-                                        theme: 'dark',
-                                        animation: 'rotateX',
-                                        closeAnimation: 'rotateX',
-                                        title: "删除失败",
-                                        content:result.message+"：<br/>" +result.data,
-                                        buttons: {
-                                            confirm: {
-                                                text: '确认',
-                                                btnClass: 'waves-effect waves-button waves-light'
-                                            }
-                                        }
-                                    });
+									if (result.data instanceof Array) {
+										$.each(result.data, function(index, value) {
+											$.confirm({
+												theme: 'dark',
+												animation: 'rotateX',
+												closeAnimation: 'rotateX',
+												title: false,
+												content: value.errorMsg,
+												buttons: {
+													confirm: {
+														text: '确认',
+														btnClass: 'waves-effect waves-button waves-light'
+													}
+												}
+											});
+										});
+									} else {
+										$.confirm({
+											theme: 'dark',
+											animation: 'rotateX',
+											closeAnimation: 'rotateX',
+											title: false,
+											content: result.data.errorMsg,
+											buttons: {
+												confirm: {
+													text: '确认',
+													btnClass: 'waves-effect waves-button waves-light'
+												}
+											}
+										});
+									}
 								} else {
 									deleteDialog.close();
 									$table.bootstrapTable('refresh');

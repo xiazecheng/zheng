@@ -18,7 +18,7 @@
 <body>
 <div id="main">
 	<div id="toolbar">
-		<shiro:hasPermission name="shop:store:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 添加店铺</a></shiro:hasPermission>
+		<shiro:hasPermission name="shop:store:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增店铺</a></shiro:hasPermission>
 		<shiro:hasPermission name="shop:store:update"><a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑店铺</a></shiro:hasPermission>
 		<shiro:hasPermission name="shop:store:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除店铺</a></shiro:hasPermission>
 	</div>

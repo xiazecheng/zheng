@@ -188,27 +188,31 @@ $(function() {
 // 选项卡对象
 var Tab = {
 	addTab: function(title, url) {
-		var index = url.replace(/\./g, '_').replace(/\//g, '_').replace(/:/g, '_').replace(/\?/g, '_').replace(/,/g, '_').replace(/=/g, '_').replace(/&/g, '_');
-		// 如果存在选项卡，则激活，否则创建新选项卡
-		if ($('#tab_' + index).length == 0) {
-			// 添加选项卡
-			$('.content_tab li').removeClass('cur');
-			var tab = '<li id="tab_' + index +'" data-index="' + index + '" class="cur"><a class="waves-effect waves-light">' + title + '</a></li>';//<i class="zmdi zmdi-close"></i><
-			$('.content_tab>ul').append(tab);
-			// 添加iframe
-			$('.iframe').removeClass('cur');
-			var iframe = '<div id="iframe_' + index + '" class="iframe cur"><iframe class="tab_iframe" src="' + url + '" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe></div>';
-			$('.content_main').append(iframe);
-			initScrollShow();
-			$('.content_tab>ul').animate({scrollLeft: document.getElementById('tabs').scrollWidth - document.getElementById('tabs').clientWidth}, 200, function() {
-				initScrollState();
-			});
-		} else {
-			$('#tab_' + index).trigger('click');
-		}
+		this._addTab(title,url);
 		// 关闭侧边栏
 		$('#guide').trigger(click);
 	},
+    _addTab: function(title, url) {
+        var index = url.replace(/\./g, '_').replace(/\//g, '_').replace(/:/g, '_').replace(/\?/g, '_').replace(/,/g, '_').replace(/=/g, '_').replace(/&/g, '_');
+        console.log(index);
+        // 如果存在选项卡，则激活，否则创建新选项卡
+        if ($('#tab_' + index).length == 0) {
+            // 添加选项卡
+            $('.content_tab li').removeClass('cur');
+            var tab = '<li id="tab_' + index +'" data-index="' + index + '" class="cur"><a class="waves-effect waves-light">' + title + '</a></li>';//<i class="zmdi zmdi-close"></i><
+            $('.content_tab>ul').append(tab);
+            // 添加iframe
+            $('.iframe').removeClass('cur');
+            var iframe = '<div id="iframe_' + index + '" class="iframe cur"><iframe class="tab_iframe" src="' + url + '" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe></div>';
+            $('.content_main').append(iframe);
+            initScrollShow();
+            $('.content_tab>ul').animate({scrollLeft: document.getElementById('tabs').scrollWidth - document.getElementById('tabs').clientWidth}, 200, function() {
+                initScrollState();
+            });
+        } else {
+            $('#tab_' + index).trigger('click');
+        }
+    },
 	closeTab: function($item) {
 		var closeable = $item.data('closeable');
 		if (closeable != false) {

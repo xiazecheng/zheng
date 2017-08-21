@@ -9,34 +9,38 @@
 <div id="createDialog" class="crudDialog">
 	<form id="createForm" method="post">
 		<div class="form-group">
-			<label for="name">名称</label>
+			<label for="name">店铺名称</label>
 			<input id="name" type="text" class="form-control" name="name" maxlength="20">
 		</div>
 		<div class="form-group">
-			<select id="parentId" name="parentId">
-				<option value="-1">顶级分类</option>
-				<c:forEach var="productCategory" items="${productCategories}">
-					<c:set value="${fn:split(productCategory.path, ',') }" var="array" />
-					<option value="${productCategory.id}">
-						<c:forEach var="item" items="${array}">
-							&nbsp;
-						</c:forEach>
-					${productCategory.name}
-					</option>
+			<select id="admin" name="admin">
+				<option value="-1">选择药店管理员</option>
+				<c:forEach var="upmsUser" items="${upmsUsers}">
+					<option value="${upmsUser.userId}">${upmsUser.realname}</option>
 				</c:forEach>
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="orderList">排序</label>
-			<input id="orderList" type="text" class="form-control" name="orderList">
+			<label for="addr">店铺地址</label>
+			<input id="addr" type="text" class="form-control" name="addr">
 		</div>
 		<div class="form-group">
-			<label for="metaKeywords">关键字</label>
-			<input id="metaKeywords" type="text" class="form-control" name="metaKeywords" maxlength="20">
+			<label for="contact">联系人</label>
+			<input id="contact" type="text" class="form-control" name="contact" maxlength="20">
 		</div>
 		<div class="form-group">
-			<label for="metaDescription">页面描述</label>
-			<input id="metaDescription" type="text" class="form-control" name="metaDescription" maxlength="20">
+			<label for="mobile">手机号码</label>
+			<input id="mobile" type="text" class="form-control" name="mobile" maxlength="11">
+		</div>
+		<div class="radio">
+			<div class="radio radio-inline radio-success">
+				<input id="status_1" type="radio" name="status" value="1" checked>
+				<label for="status_1">正常 </label>
+			</div>
+			<div class="radio radio-inline">
+				<input id="status_0" type="radio" name="status" value="-1">
+				<label for="status_0">锁定 </label>
+			</div>
 		</div>
 		<div class="form-group text-right dialog-buttons">
 			<a class="waves-effect waves-button" href="javascript:;" onclick="createSubmit();">保存</a>
@@ -48,13 +52,30 @@
 function createSubmit() {
     $.ajax({
         type: 'post',
-        url: '${basePath}/manage/category/create',
+        url: '${basePath}/manage/store/create',
         data: $('#createForm').serialize(),
         beforeSend: function() {
             if ($('#name').val() == '') {
                 $('#name').focus();
                 return false;
             }
+            if ($('#admin').val() == -1) {
+                $('#admin').focus();
+                return false;
+            }
+            if ($('#addr').val() == '') {
+                $('#addr').focus();
+                return false;
+            }
+            if ($('#contact').val() == '') {
+                $('#contact').focus();
+                return false;
+            }
+            if ($('#mobile').val() == '') {
+                $('#mobile').focus();
+                return false;
+            }
+
         },
         success: function(result) {
 			if (result.code != 1) {

@@ -65,6 +65,7 @@ public class CategoryController {
         }
         List<ShopProductCategory> rows = shopProductCategoryService
                 .selectByExampleWithBLOBsForOffsetPage(shopProductCategoryExample,offset,limit);
+        rows = shopProductCategoryService.recursivProductCategoryTreeList(rows,null,null);
         long total = shopProductCategoryService.countByExample(shopProductCategoryExample);
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
